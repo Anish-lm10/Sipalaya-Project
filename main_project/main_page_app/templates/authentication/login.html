@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% block title %} Login {% endblock %}
+{% block content %}
+
+<div class="d-flex justify-content-center align-items-center vh-100 bg-light">
+  <div class="col-md-4">
+    <div class="card shadow-sm border-0">
+      <div class="card-body p-4">
+        <!-- Logo or Brand -->
+        <div class="text-center mb-4">
+          <i class="bi bi-person-circle display-4 text-primary"></i>
+          <h2 class="mt-2">Welcome Back</h2>
+          <p class="text-muted">Please sign in to your account</p>
+        </div>
+
+        {% if form.errors %}
+            <div class="alert alert-danger">
+        {% for field in form %}
+        {% for error in field.errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+        {% endfor %}
+        {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+        {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- Login Form -->
+        <form method="post" action="{% url 'login' %}">
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="email" class="form-label">Username</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-envelope"></i></span>
+              <input type="text" name="username" class="form-control" id="email" placeholder="Enter your username" required>
+            </div>
+          </div>
+          <div class="mb-3">
+            <label for="password" class="form-label">Password</label>
+            <div class="input-group">
+              <span class="input-group-text"><i class="bi bi-lock"></i></span>
+              <input type="password" name="password" class="form-control" id="password" placeholder="Enter your password" required>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary w-100 mb-3">
+            <i class="bi bi-box-arrow-in-right"></i> Login
+          </button>
+        </form>
+
+        <!-- Google Login Button -->
+        <a href="#" class="btn btn-outline-danger w-100 mb-3">
+          <i class="bi bi-google"></i> Login with Google
+        </a>
+
+        <!-- Signup Link -->
+        <div class="text-center">
+          <p class="text-muted">Don't have an account? <a href="{% url 'signup' %}" class="text-decoration-none">Sign Up</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

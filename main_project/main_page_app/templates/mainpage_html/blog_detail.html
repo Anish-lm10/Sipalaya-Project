@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block title %} Blog {% endblock %}
+{% load static %}
+{% block content %}
+<div class="container my-5"  data-aos="fade-down" data-aos-duration="1000">
+  <h1 class="mb-3">{{ blog.title }}</h1>
+  <p class="text-muted">By {{ blog.author }} | {{ blog.created_at|date:"F d, Y" }}</p>
+  <img src="{% if blog.blog_image %}{{ blog.blog_image.url }}{% else %}{% static 'images/default-blog.png' %}
+  {% endif %}" class="img-fluid mb-4" alt="{{ blog.title }}" style="max-height: 400px; object-fit: cover;">
+  <p>{{ blog.content|linebreaks }}</p>
+  <a href="{% url 'blog_list' %}" class="btn btn-secondary">Back to Blogs</a>
+</div>
+{% endblock %}

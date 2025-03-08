@@ -1,0 +1,255 @@
+{% extends 'base.html' %}
+ {% block title %} Home {% endblock %} 
+ {% block content %}
+ {% load static %}
+<!-- Carousels Starts -->
+<div id="carouselExampleCaptions" class="carousel slide"  data-bs-ride="carousel">
+    <div class="carousel-inner">
+      <!-- Slide 1 (Web Development) -->
+      <div class="carousel-item active" data-bs-interval="10000">
+        <div class="row align-items-center" style="min-height: 600px;">
+          <!-- Text Content -->
+          <div class="col-md-6 p-5">
+            <div class="badge bg-primary mb-3" style="font-size: 1.2rem;">Enroll on Courses</div>
+            {% if courses %}
+            <h1 class="display-4 fw-bold mb-4">{{courses.title}}</h1>
+            <p class="lead mb-4">{{courses.description}}</p>
+            {% endif %}
+            <div class="d-grid gap-3 d-md-block">
+              <a href="#"><button class="btn btn-primary btn-lg px-5 me-md-2">Enroll Now</button></a>
+              <a href="{% url 'courses' %}"><button class="btn btn-outline-secondary btn-lg px-5">Learn More</button></a>
+            </div>
+          </div>
+          <!-- Image -->
+          <div class="col-md-6 d-block">
+            <img src="{% static 'images/image.png' %}" class="d-none d-md-block w-100 h-100" style="object-fit: cover;" alt="Web Development">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Slide 2 (Discounts) -->
+      <div class="carousel-item" data-bs-interval="2000">
+        <div class="row align-items-center" style="min-height: 600px;">
+          <!-- Text Content -->
+          <div class="col-md-6 p-5">
+            <div class="badge bg-danger mb-3" style="font-size: 1.2rem;">Limited Time Offer</div>
+            <h1 class="display-4 fw-bold mb-4">Special Discounts Available!</h1>
+            <ul class="list-group mb-4">
+              {% for offer in offers %}
+              <li class="list-group-item d-flex justify-content-between align-items-center">
+                {{offer.title}}
+                <span class="badge bg-success">{{offer.discount_percentage}}% OFF</span>
+              </li>
+              {% endfor %}
+            </ul>
+            <a href="{% url 'courses' %}"><button class="btn btn-info btn-lg px-5">Claim Your Discount</button></a>
+          </div>
+          <!-- Image -->
+          <div class="col-md-6">
+            <img src="{% static 'images/discount.png' %}" class="d-none d-md-block w-100 h-90" style="object-fit: contain; max-height: 600px;" alt="Special Offers">
+          </div>
+        </div>
+      </div>
+  
+      <!-- Slide 3 (Announcements) -->
+      <div class="carousel-item">
+        <div class="row align-items-center" style="min-height: 600px;">
+          <!-- Text Content -->
+          <div class="col-md-6 p-5">
+            <div class="badge bg-info mb-3" style="font-size: 1.2rem;">New Announcement</div>
+            <h1 class="display-4 fw-bold mb-4">Exciting News!</h1>
+            <div class="alert alert-success mb-4">
+              <h4 class="alert-heading">New Course Launch</h4>
+              <p>We're thrilled to announce our new
+                {% if courses %}  
+                <strong>{{courses.title}}</strong> 
+                {% endif %} 
+                course starting next month!</p>
+            </div>
+            {% if announcement %}
+              
+            <div class="alert alert-success mb-4">
+              <h4 class="alert-heading">{{ announcement.title }}</h4>
+              <p>{{ announcement.content }}</p>
+            </div>
+            {% endif %}
+          
+          </div>
+          <!-- Image -->
+          <div class="col-md-6">
+            <img src="{% static 'images/annoucement.png' %}" class="d-none d-md-block w-100 h-100" style="object-fit: contain; max-height: 500px;" alt="Announcements">
+          </div>
+        </div>
+      </div>
+    </div>
+  <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Previous</span>
+  </button>
+  <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    <span class="visually-hidden">Next</span>
+  </button>
+</div>
+<!-- Carousels Ends -->
+ 
+ <!-- Why us SECTION STARTS -->
+  <div class="container my-5">
+    <div class="row align-item-center">
+      <div class="col-md-6 d-flex flex-column justify-content-center" data-aos="fade-down"  data-aos-duration="1000">
+        <h1 class="display-5 fw-bold mb-4">Why Choose Tech Traning?</h1>
+        <p class="text-muted">Seize the future: Secure your career with us cutting-edge resources and transformative learning experiences.</p>
+      </div>
+      <div class="col-md-6" data-aos="fade-down"  data-aos-duration="1000">
+        <div class="row">
+          <!-- Statistic 1 -->
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h1 class="display-4 fw-bold text-primary">5,000+</h1>
+                <p class="text-muted">Students Trained</p>
+              </div>
+            </div>
+          </div>
+          <!-- Statistic 2 -->
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h1 class="display-4 fw-bold text-success">500+</h1>
+                <p class="text-muted">Courses Available</p>
+              </div>
+            </div>
+          </div>
+          <!-- Statistic 3 -->
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h1 class="display-4 fw-bold text-warning">50+</h1>
+                <p class="text-muted">Expert Instructors</p>
+              </div>
+            </div>
+          </div>
+          <!-- Statistic 4 -->
+          <div class="col-md-6 mb-4">
+            <div class="card shadow-sm border-0">
+              <div class="card-body">
+                <h1 class="display-4 fw-bold text-info">95%</h1>
+                <p class="text-muted">Students Satisfaction</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+ <!-- Why us SECTION ENDS -->
+
+ <!-- Course Section Starts -->
+  <h1 class="fw-bold text-center mt-5" data-aos="fade-down"  data-aos-duration="1000">Courses Available with Online | Physical Classes</h1>
+  <div class="container my-5">
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4"  data-aos="fade-down"  data-aos-duration="1000" >
+      <!-- Course 1 -->
+      {% for courses in coursess %}
+      <div class="col-md-4">
+        <div class="card h-100 shadow-sm border-0 hover-scale">
+          <img src=" {% if courses.image %} {{courses.image.url}} {% else %} {% static 'images/default.png' %}
+          {% endif %}" class="card-img-top img-fluid" alt="Course Image" style="height: 250px; object-fit: contain;">
+          <div class="card-body">
+             <!-- Course Rating -->
+             <div class="mb-3">
+              <div class="d-flex align-items-center">
+                <span class="text-warning">
+                  {% for _ in "12345" %}
+                    {% if forloop.counter <= courses.course_rating %}
+                      <i class="fas fa-star"></i>
+                    {% else %}
+                      <i class="far fa-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                </span>
+              </div>
+            </div>
+            <h5 class="card-title">{{courses.title}}</h5>
+            <p class="text-muted">Skill Level: <span class="fw-bold">{{courses.skill_level}}</span></p>
+            <p class="text-muted">Duration: <span class="fw-bold">{{courses.duration}} months</span></p>
+            <p class="card-text">{{courses.description}}</p>
+          </div>
+          <div class="card-footer d-flex justify-content-between align-items-center">
+            <span class="text-primary fw-bold">Rs.{{courses.discount}} <del class="text-muted">Rs.{{courses.price}}</del></span>
+            <button class="btn btn-primary">Enroll Now</button>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="text-center mt-4">
+    <a href="{% url 'courses' %}" class="btn btn-primary btn-lg px-4">See All Courses</a>
+  </div>
+ <!-- Course Section Ends -->
+
+ <!-- Testimonial Section Starts -->
+<div class="container my-5 mt-5" data-aos="fade-down"  data-aos-duration="1000">
+  <h2 class="text-center display-4 fw-bold mt-5">Testimonial</h2>
+  <p class="text-muted text-center mb-5">Learning communicate to global world and build a bright future and career development, increase your skill with our histudy.</p>
+  <!-- Testimonial Carousel -->
+  <div id="testimonialCarousel" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+      {% for testimonial in testimonials|slice:":3" %}  <!-- First 3 testimonials -->
+      <div class="carousel-item {% if forloop.first %}active{% endif %}">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% for testimonial in testimonials %}
+          <div class="col">
+            <div class="card h-100 shadow-sm text-center p-3">
+              <img src="{% if testimonial.photo %}{{ testimonial.photo.url }}{% else %}{% static 'images/default-user.png' %}{% endif %}" class="rounded-circle mx-auto" alt="{{ testimonial.student_name }}" width="100" height="100">
+              <div class="card-body">
+                <h5 class="card-title">{{ testimonial.student_name }}</h5>
+                <p class="text-muted">{{ testimonial.postion }}</p>
+                <p class="card-text">"{{ testimonial.testimonial }}"</p>
+                <div class="text-warning">
+                  {% for _ in "12345" %}
+                    {% if forloop.counter <= testimonial.rating %}
+                      <i class="fas fa-star"></i>
+                    {% else %}
+                      <i class="far fa-star"></i>
+                    {% endif %}
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+          {% if forloop.counter|divisibleby:3 and not forloop.last %}
+        </div>
+      </div>
+      <div class="carousel-item">
+        <div class="row row-cols-1 row-cols-md-3 g-4">
+          {% endif %}
+          {% endfor %}
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+
+    <!-- Carousel Controls -->
+    <button class="carousel-control-prev" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="prev">
+      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#testimonialCarousel" data-bs-slide="next">
+      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>
+ <!-- Testimonial Section Ends-->
+
+ <!-- Contact Box Starts -->
+ <div class="container my-5 d-flex justify-content-center mt-5"  data-aos="fade-down"  data-aos-duration="1000">
+  <div class="card shadow-lg border-0 w-100 p-4 bg-dark d-flex flex-row align-items-center rounded mt-5" style="min-height: 200px;">
+    <div class="flex-grow-1">
+      <h4 class="fw-bold text-white">Get in Touch With Us</h4>
+      <p class="text-white mb-0">Have any questions? Feel free to reach out to us. Our team is here to assist you.</p>
+    </div>
+    <a href="{% url 'contact' %}" class="btn btn-primary btn-lg">Contact Us</a>
+  </div>
+</div>
+ <!-- Contact Box Ends -->
+{% endblock %}

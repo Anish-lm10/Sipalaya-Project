@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% block title %} Courses {% endblock %} 
+{% block content %}
+{% load static %}
+
+<div class="text-center mt-5">
+  <h1>All Courses</h1>
+</div>
+<!-- Filters Box -->
+<div class="container my-4">
+  <div class="card shadow-sm p-3">
+    <form method="GET" class="row g-3 align-items-center">
+      <!-- Skill Level Filter -->
+      <div class="col-md-4">
+        <label for="skill_level" class="form-label fw-bold">Skill Level</label>
+        <select class="form-select" name="skill_level" id="skill_level">
+          <option value="">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+      </div>
+
+      <!-- Duration Filter -->
+      <div class="col-md-4">
+        <label for="duration" class="form-label fw-bold">Duration (Months)</label>
+        <input type="number" class="form-control" name="duration" id="duration" placeholder="Enter duration">
+      </div>
+
+      <!-- Price Range Filter -->
+      <div class="col-md-4">
+        <label for="price" class="form-label fw-bold">Max Price (Rs.)</label>
+        <input type="number" class="form-control" name="price" id="price" placeholder="Enter max price">
+      </div>
+
+      <!-- Submit Button -->
+      <div class="col-12 text-end">
+        <button type="submit" class="btn btn-primary">Apply Filters</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-4 g-4" data-aos="fade-down" data-aos-duration="1000">
+    <!-- Course Cards -->
+    {% for course in courses %}
+    <div class="col">
+      <div class="card h-100 shadow-sm border-0 hover-scale">
+        <!-- Course Image -->
+        <img src="{% if course.image %}{{ course.image.url }}{% else %}{% static 'images/default.png' %}{% endif %}"
+             class="card-img-top img-fluid"
+             alt="Course Image"
+             style="height: 150px; object-fit: contain;">
+        
+        <div class="card-body">
+          <!-- Course Rating -->
+          <div class="mb-2">
+            <div class="d-flex align-items-center">
+              <span class="text-warning">
+                {% for _ in "12345" %}
+                  {% if forloop.counter <= course.course_rating %}
+                    <i class="fas fa-star"></i>
+                  {% else %}
+                    <i class="far fa-star"></i>
+                  {% endif %}
+                {% endfor %}
+              </span>
+            </div>
+          </div>
+
+          <!-- Course Title -->
+          <h5 class="card-title">{{ course.title }}</h5>
+
+          <!-- Skill Level and Duration -->
+          <p class="text-muted mb-1">Skill Level: <span class="fw-bold">{{ course.skill_level }}</span></p>
+          <p class="text-muted mb-2">Duration: <span class="fw-bold">{{ course.duration }} months</span></p>
+
+          <!-- Course Description -->
+          <p class="card-text">{{ course.description|truncatechars:100 }}</p>
+        </div>
+
+        <!-- Card Footer -->
+        <div class="card-footer d-flex justify-content-between align-items-center">
+          <!-- Price and Discount -->
+          <span class="text-primary fw-bold">
+            Rs.{{ course.discount }}
+            <del class="text-muted">Rs.{{ course.price }}</del>
+          </span>
+          <!-- Enroll Button -->
+          <button class="btn btn-primary btn-sm">Enroll Now</button>
+        </div>
+      </div>
+    </div>
+    {% endfor %}
+  </div>
+</div>
+{% endblock %}
