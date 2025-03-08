@@ -11,7 +11,7 @@ class CustomUser(AbstractUser):
         ("instructor", "Instructor"),
     )
     user_type = models.CharField(max_length=100, choices=USER_TYPE)
-    user_profile_image = models.ImageField(upload_to="profile_images/")
+    user_profile_image = models.ImageField(upload_to="images/profile_images/")
     phone = models.CharField(max_length=15, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
     bio = models.TextField(blank=True, null=True)
@@ -59,7 +59,7 @@ class Courses(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
     skill_level = models.CharField(max_length=100, choices=SKILL_LEVEL)
     description = models.TextField()
-    image = models.ImageField(upload_to="courses/", blank=True, null=True)
+    image = models.ImageField(upload_to="images/courses/", blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.PositiveIntegerField(default=0)
     # instructor = models.ForeignKey(
@@ -90,7 +90,7 @@ class Testimonial(models.Model):
     student_name = models.CharField(max_length=100)
     postion = models.CharField(max_length=100)
     testimonial = models.TextField()
-    photo = models.ImageField(upload_to="testimonials/",null=True,blank=True)
+    photo = models.ImageField(upload_to="images/testimonials/",null=True,blank=True)
     rating = models.DecimalField(
         max_digits=3, decimal_places=2, default=0.0
     )  # Max 5.0 rating
@@ -106,7 +106,7 @@ class BlogPost(models.Model):
     slug=models.SlugField(unique=True,blank=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     content = models.TextField()
-    blog_image = models.ImageField(upload_to="blog_images/",null=True,blank=True)
+    blog_image = models.ImageField(upload_to="images/blog_images/",null=True,blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
