@@ -92,7 +92,7 @@ def sign_in(request):
             user.save()
             login(request, user)
             messages.success(request, "Signup successful! Welcome.")
-            return redirect("home")  # Change to your desired redirect URL
+            return redirect("home") 
         else:
             messages.error(request, "Please correct the errors below.")
     else:
