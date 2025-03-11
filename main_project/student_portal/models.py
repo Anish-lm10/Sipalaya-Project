@@ -38,9 +38,22 @@ class JobListing(models.Model):
     title = models.CharField(max_length=255)
     description = models.TextField()
     company_name = models.CharField(max_length=255)
+    job_type = models.CharField(
+        max_length=50,
+        choices=[
+            ("full_time", "Full Time"),
+            ("part_time", "Part Time"),
+            ("internship", "Internship"),
+            ("remote", "Remote"),
+        ],
+        default=True
+    )
+    location=models.CharField(max_length=200,null=True)
+    contact_email = models.EmailField(null=True) 
     application_deadline = models.DateField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+    is_active = models.BooleanField(default=True)
 
     def __str__(self):
         return self.title

@@ -13,22 +13,23 @@
         <div class="card shadow-sm border-0">
           <div class="card-body">
             <h3 class="card-title fw-bold mb-4">Send Us a Message</h3>
-            <form>
+            <form method="POST" action="{% url 'contact' %}">
+              {% csrf_token %}
               <div class="mb-3">
                 <label for="name" class="form-label">Full Name</label>
-                <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                <input type="text" class="form-control" name="name" id="name" placeholder="Enter your name" required>
               </div>
               <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                <input type="email" class="form-control" name="email" id="email" placeholder="Enter your email" required>
               </div>
               <div class="mb-3">
                 <label for="phone" class="form-label">Phone Number</label>
-                <input type="tel" class="form-control" id="phone" placeholder="Enter your phone number">
+                <input type="tel" class="form-control" name="phonenumber" id="phone" placeholder="Enter your phone number">
               </div>
               <div class="mb-3">
                 <label for="message" class="form-label">Message</label>
-                <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
+                <textarea class="form-control" id="message" rows="5" name="textareas" placeholder="Enter your message" required></textarea>
               </div>
               <button type="submit" class="btn btn-primary">Send Message</button>
             </form>

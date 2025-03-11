@@ -1,0 +1,76 @@
+{% extends 'base2.html' %}
+{% block title %} Job Announcements {% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid">
+  <div class="row p-4">
+    <!-- Main Content - Job Announcements -->
+    <div class="col-md-9 p-4">
+      <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+          <h4 class="mb-0"><i class="bi bi-briefcase me-2"></i>Job Announcements</h4>
+        </div>
+        <div class="card-body">
+          <!-- Job List -->
+          <div class="row row-cols-1 row-cols-md-2 g-4">
+            {% for job in jobs %}
+            <div class="col">
+              <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                  <h5 class="card-title fw-bold">{{ job.title }}</h5>
+                  <h6 class="card-subtitle mb-2 text-muted">{{ job.company_name }}</h6>
+                  <p class="card-text">
+                    <i class="bi bi-geo-alt"></i> {{ job.location }}<br>
+                    <i class="bi bi-clock"></i> {{ job.get_job_type_display }}<br>
+                    <i class="bi bi-calendar"></i> Deadline: {{ job.application_deadline|date:"F d, Y" }}<br>
+                    <i class="bi bi-envelope"></i> Contact: <a href="mailto:{{ job.contact_email }}">{{ job.contact_email }}</a>
+                  </p>
+                  <p class="card-text">{{ job.description|truncatechars:150 }}</p>
+                  
+                </div>
+              </div>
+            </div>
+            {% empty %}
+            <div class="col">
+              <div class="alert alert-info" role="alert">
+                No job announcements available at the moment.
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Sidebar Menu -->
+    <div class="col-md-3 mt-md-0 mt-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="fw-bold mb-4">Menu</h5>
+          <div class="list-group">
+            <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action">
+              <i class="bi bi-speedometer2 me-2"></i> Dashboard
+            </a>
+            <a href="{% url 'myprofile' %}" class="list-group-item list-group-item-action">
+              <i class="bi bi-person me-2"></i> My Profile
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <i class="bi bi-journal-bookmark me-2"></i> Enrolled Courses
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <i class="bi bi-file-earmark-arrow-up me-2"></i> Assignments
+            </a>
+            <a href="{% url 'job_listing' %}" class="list-group-item list-group-item-action active">
+              <i class="bi bi-briefcase me-2"></i> Job Announcements
+            </a>
+            <a href="{% url 'logout' %}" class="list-group-item list-group-item-action text-danger">
+              <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
