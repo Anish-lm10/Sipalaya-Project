@@ -23,6 +23,7 @@
   </head>
   <body>
     <!-- NAVBAR SECTION STARTS -->
+    <!-- NAVBAR SECTION STARTS -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
       <div class="container">
         <a class="navbar-brand" href="{% url 'home' %}">
@@ -43,7 +44,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-          <ul class="navbar-nav ms-auto">
+          <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item">
               <a class="nav-link {% if request.path == '/' %}active{% endif %}" aria-current="page" href="{% url 'home' %}"
                 >Home</a
@@ -75,7 +76,11 @@
                         <strong>{{ user.username }}</strong>
                     </li>
                     <li><hr class="dropdown-divider"></li>
+                    {% if user.user_type == "student" %}
                     <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {% elif user.user_type == "instructor" %}
+                    <li><a class="dropdown-item" href="{% url 'instructor_dashboard' %}">Instructor Dashboard</a></li>
+                    {% endif %}
                     <li><a class="dropdown-item" href="{% url 'myprofile' %}">My Profile</a></li>
                     <li>
                         <form method="post" action="{% url 'logout' %}">
@@ -86,11 +91,11 @@
                 </ul>
             </li>
             {% endif %}
-          
           </ul>
         </div>
       </div>
     </nav>
+    <!-- NAVBAR SECTION ENDS -->
     <!-- NAVBAR SECTION ENDS -->
 
     <!-- MAIN CONTENT BLOCK -->
@@ -230,11 +235,11 @@
     <script src="https://cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
     <script src="{% static 'js/aos.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
-    {% if messages %} {% for message in messages %}
+    <!-- {% if messages %} {% for message in messages %}
     <script>
       alertify.set("notifier", "position", "top-center");
       alertify.success("{{message}}");
     </script>
-    {% endfor %} {% endif %}
+    {% endfor %} {% endif %} -->
   </body>
 </html>

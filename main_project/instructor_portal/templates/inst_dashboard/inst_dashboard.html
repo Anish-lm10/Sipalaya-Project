@@ -1,5 +1,5 @@
-{% extends 'base2.html' %}
-{% block title %} Dashboard {% endblock %}
+{% extends 'base3.html' %}
+{% block title %} Instructor Dashboard {% endblock %}
 {% block content %}
 {% load static %}
 
@@ -16,18 +16,8 @@
                    style="width: 100px; height: 100px; object-fit: cover;">
           </div>
           <div>
-              <h2 class="mb-0">Hello,</h2>
+              <h2 class="mb-0">Hello,instructor</h2>
               <h1 class="display-5 fw-bold">{{ user.first_name }} {{ user.last_name }}</h1>
-          </div>
-          <div class="ms-auto">
-              {% if request.session.instructor_application_submitted %}
-                  <p class="text-success">Your instructor application has been submitted and is under review.</p>
-              {% else %}
-                  <form method="post" action="{% url 'dashboard' %}">
-                      {% csrf_token %}
-                      <button type="submit" class="btn btn-primary">Become an Instructor</button>
-                  </form>
-              {% endif %}
           </div>
       </div>
       {% endif %}
@@ -48,20 +38,20 @@
         <div class="card-body">
           <h5 class="fw-bold mb-4">Menu</h5>
           <div class="list-group">
-            <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action active">
+            <a href="{% url 'instructor_dashboard' %}" class="list-group-item list-group-item-action active">
               <i class="bi bi-speedometer2 me-2"></i> Dashboard
             </a>
-            <a href="{% url 'myprofile' %}" class="list-group-item list-group-item-action">
+            <a href="#" class="list-group-item list-group-item-action">
               <i class="bi bi-person me-2"></i> My Profile
             </a>
             <a href="#" class="list-group-item list-group-item-action">
-              <i class="bi bi-journal-bookmark me-2"></i> Enrolled Courses
+              <i class="bi bi-journal-bookmark me-2"></i> My Courses
             </a>
             <a href="#" class="list-group-item list-group-item-action">
-              <i class="bi bi-journal-bookmark me-2"></i> Assignments
+              <i class="bi bi-journal-bookmark me-2"></i> Students
             </a>
-            <a href="{% url 'job_listing' %}" class="list-group-item list-group-item-action">
-              <i class="bi bi-briefcase me-2"></i> Job Announcement
+            <a href="#" class="list-group-item list-group-item-action">
+              <i class="bi bi-briefcase me-2"></i> Assignments
             </a>
             <a href="{% url 'logout' %}" class="list-group-item list-group-item-action text-danger">
               <i class="bi bi-box-arrow-right me-2"></i> Logout

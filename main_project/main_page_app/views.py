@@ -29,19 +29,19 @@ def home(request):
         "offers": offers,
         "announcement": announcement,
         "testimonials": testimonials,
-        "date": datetime.now().year
+        "date": datetime.now().year,
     }
     return render(request, "mainpage_html/home.html", context)
 
 
 def courses(request):
     courses = Courses.objects.all()
-    context = {"courses": courses,"date": datetime.now().year}
+    context = {"courses": courses, "date": datetime.now().year}
     return render(request, "mainpage_html/courses.html", context)
 
 
 def aboutus(request):
-    return render(request, "mainpage_html/aboutus.html",{"date": datetime.now().year})
+    return render(request, "mainpage_html/aboutus.html", {"date": datetime.now().year})
 
 
 def contact(request):
@@ -69,21 +69,29 @@ def contact(request):
                 messages.error(request, f"Error sending email: {e}")
                 return redirect("contact")
 
-    return render(request, "mainpage_html/contact.html",{"date": datetime.now().year})
+    return render(request, "mainpage_html/contact.html", {"date": datetime.now().year})
 
 
 def blog_list(request):
     blogs = BlogPost.objects.all().order_by("-created_at")
-    return render(request, "mainpage_html/blogs.html", {"blogs": blogs,"date": datetime.now().year})
+    return render(
+        request,
+        "mainpage_html/blogs.html",
+        {"blogs": blogs, "date": datetime.now().year},
+    )
 
 
 def blog_details(request, slug):
     blog = BlogPost.objects.get(slug=slug)
-    return render(request, "mainpage_html/blog_detail.html", {"blog": blog,"date": datetime.now().year})
+    return render(
+        request,
+        "mainpage_html/blog_detail.html",
+        {"blog": blog, "date": datetime.now().year},
+    )
 
 
 def policy(request):
-    return render(request, "mainpage_html/policy.html",{"date": datetime.now().year})
+    return render(request, "mainpage_html/policy.html", {"date": datetime.now().year})
 
 
 ####################################################################################
@@ -101,14 +109,22 @@ def log_in(request):
             if user is not None:
                 login(request, user)
                 messages.info(request, f"You are now logged in as {username}.")
-                return redirect("home")
+
+                if user.user_type == "student":
+                    return redirect("home")
+                elif user.user_type == "instructor":
+                    return redirect("instructor_dashboard")
             else:
                 messages.error(request, "Invalid username or password.")
         else:
             messages.error(request, "Invalid username or password.")
     else:
         form = AuthenticationForm()
-    return render(request, "authentication/login.html", {"form": form,"date": datetime.now().year})
+    return render(
+        request,
+        "authentication/login.html",
+        {"form": form, "date": datetime.now().year},
+    )
 
 
 def sign_in(request):
@@ -127,7 +143,11 @@ def sign_in(request):
             messages.error(request, "Please correct the errors below.")
     else:
         form = CustomUserCreationForm()
-    return render(request, "authentication/signup.html", {"form": form,"date": datetime.now().year})
+    return render(
+        request,
+        "authentication/signup.html",
+        {"form": form, "date": datetime.now().year},
+    )
 
 
 def logout_view(request):

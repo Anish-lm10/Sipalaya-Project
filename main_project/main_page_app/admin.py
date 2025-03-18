@@ -1,8 +1,14 @@
 from django.contrib import admin
 from .models import *
 
+
 # Register your models here.
-admin.site.register(CustomUser)
+class CustomUserAdmin(admin.ModelAdmin):
+    list_display = ["username"]
+    search_fields = ["username", "email"]
+
+
+admin.site.register(CustomUser,CustomUserAdmin)
 admin.site.register(Courses)
 admin.site.register(SpecialOffers)
 admin.site.register(Testimonial)

@@ -71,12 +71,12 @@
                         <strong>{{ user.username }}</strong>
                     </li>
                     <li><hr class="dropdown-divider"></li>
+                    
                     {% if user.user_type == "student" %}
-                        <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+                      <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
                     {% elif user.user_type == "instructor" %}
-                        <li><a class="dropdown-item" href="{% url 'instructor_dashboard' %}">Instructor Dashboard</a></li>
+                      <li><a class="dropdown-item" href="{% url 'instructor_dashboard' %}">Instructor Dashboard</a></li>
                     {% endif %}
-
                     <li><a class="dropdown-item" href="{% url 'myprofile' %}">My Profile</a></li>
                     <li>
                         <form method="post" action="{% url 'logout' %}">
