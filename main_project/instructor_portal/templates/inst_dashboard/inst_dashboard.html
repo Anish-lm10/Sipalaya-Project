@@ -9,12 +9,13 @@
     <div class="col-md-9">
       {% if user.is_authenticated %}
       <div class="d-flex align-items-center mb-5">
-          <div class="me-4">
-              <img src="{% if user.user_profile_image %}{{ user.user_profile_image.url }}{% else %}{% static 'images/default-user.png' %}{% endif %}" 
-                   class="rounded-circle" 
-                   alt="Profile" 
-                   style="width: 100px; height: 100px; object-fit: cover;">
-          </div>
+        <div class="me-4 position-relative">
+          <img src="{% if user.user_profile_image %}{{ user.user_profile_image.url }}{% else %}{% static 'images/default-user.png' %}{% endif %}" 
+               class="rounded-circle" 
+               alt="Profile" 
+               style="width: 100px; height: 100px; object-fit: cover;">
+          <a href="{% url 'update_profile_image' %}" class="btn btn-sm btn-outline-primary mt-2">Change Image</a>
+        </div>
           <div>
               <h2 class="mb-0">Hello,instructor</h2>
               <h1 class="display-5 fw-bold">{{ user.first_name }} {{ user.last_name }}</h1>
@@ -41,7 +42,7 @@
             <a href="{% url 'instructor_dashboard' %}" class="list-group-item list-group-item-action active">
               <i class="bi bi-speedometer2 me-2"></i> Dashboard
             </a>
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="{% url 'inst_profile' %}" class="list-group-item list-group-item-action">
               <i class="bi bi-person me-2"></i> My Profile
             </a>
             <a href="#" class="list-group-item list-group-item-action">
