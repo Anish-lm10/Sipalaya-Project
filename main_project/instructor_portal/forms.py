@@ -9,20 +9,19 @@ class ProfileImageForm(forms.ModelForm):
         model = CustomUser
         fields = ["user_profile_image"]
 
+
 class CourseForm(forms.ModelForm):
     class Meta:
         model = Courses
         fields = [
-            'title', 'category', 'skill_level', 'description', 'image', 'price', 'discount',
-            'duration', 'enrollment_deadline', 'prerequisites'
+            "title",
+            "category",
+            "skill_level",
+            "description",
+            "image",
+            "price",
+            "discount",
+            "duration",
+            "enrollment_deadline",
+            "prerequisites",
         ]
-
-class SyllabusForm(forms.ModelForm):
-    class Meta:
-        model = CourseSyllabus
-        fields = ['title', 'description']
-
-class VideoForm(forms.ModelForm):
-    class Meta:
-        model = CourseVideo
-        fields = ['title', 'video_url']

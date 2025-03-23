@@ -62,11 +62,12 @@ class Courses(models.Model):
     image = models.ImageField(upload_to="images/courses/", blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.PositiveIntegerField(default=0)
-    # instructor = models.ForeignKey(
-    #     CustomUser,
-    #     on_delete=models.CASCADE,
-    #     limit_choices_to={"user_type": "instructor"},
-    # )
+    instructor = models.ForeignKey(
+        CustomUser,
+        on_delete=models.CASCADE,
+        limit_choices_to={"user_type": "instructor"},
+        null=True
+    )
     duration = models.CharField(
         max_length=50, help_text="in months"
     )  # duration like 3 months
@@ -90,7 +91,7 @@ class Testimonial(models.Model):
     student_name = models.CharField(max_length=100)
     postion = models.CharField(max_length=100)
     testimonial = models.TextField()
-    photo = models.ImageField(upload_to="images/testimonials/",null=True,blank=True)
+    photo = models.ImageField(upload_to="images/testimonials/", null=True, blank=True)
     rating = models.DecimalField(
         max_digits=3, decimal_places=2, default=0.0
     )  # Max 5.0 rating
@@ -103,10 +104,12 @@ class Testimonial(models.Model):
 # Blogs Model
 class BlogPost(models.Model):
     title = models.CharField(max_length=255)
-    slug=models.SlugField(unique=True,blank=True)
+    slug = models.SlugField(unique=True, blank=True)
     author = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     content = models.TextField()
-    blog_image = models.ImageField(upload_to="images/blog_images/",null=True,blank=True)
+    blog_image = models.ImageField(
+        upload_to="images/blog_images/", null=True, blank=True
+    )
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 

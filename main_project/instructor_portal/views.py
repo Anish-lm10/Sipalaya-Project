@@ -32,38 +32,41 @@ def inst_profile(request):
 def create_course(request):
     if request.method == "POST":
         course_form = CourseForm(request.POST, request.FILES)
-        syllabus_form = SyllabusForm(request.POST)
-        video_form = VideoForm(request.POST)
-
-        if (
-            course_form.is_valid()
-            and syllabus_form.is_valid()
-            and video_form.is_valid()
-        ):
+        if course_form.is_valid():
+            # Save the course and set the instructor
             course = course_form.save(commit=False)
             course.instructor = request.user
             course.save()
 
-            syllabus = syllabus_form.save(commit=False)
-            syllabus.course = course
-            syllabus.save()
+            # Save topics and videos
+            topics = request.POST.getlist("topics[]")
+            for i, topic_title in enumerate(topics):
+                topic = Topic.objects.create(
+                    course=course,
+                    title=topic_title,
+                    description=request.POST.getlist(f"topic_descriptions[]")[i],
+                    order=i + 1,
+                )
 
-            video = video_form.save(commit=False)
-            video.course = course
-            video.save()
+                # Save videos for this topic
+                video_titles = request.POST.getlist(f"videos[{i}][title]")
+                video_urls = request.POST.getlist(f"videos[{i}][url]")
+                for j, video_title in enumerate(video_titles):
+                    Video.objects.create(
+                        topic=topic,
+                        title=video_title,
+                        video_url=video_urls[j],
+                        order=j + 1,
+                    )
 
             return redirect("instructor_dashboard")
     else:
         course_form = CourseForm()
-        syllabus_form = SyllabusForm()
-        video_form = VideoForm()
 
     return render(
         request,
         "inst_dashboard/create_course.html",
         {
             "course_form": course_form,
-            "syllabus_form": syllabus_form,
-            "video_form": video_form,
         },
     )
