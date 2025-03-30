@@ -18,6 +18,8 @@ class CourseForm(forms.ModelForm):
             "category",
             "skill_level",
             "description",
+            "syllabus",
+            "course_material",
             "image",
             "price",
             "discount",

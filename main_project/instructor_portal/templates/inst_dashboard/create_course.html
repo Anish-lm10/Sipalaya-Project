@@ -16,12 +16,12 @@
             <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="{{ course_form.title.id_for_label }}" class="form-label">Course Title</label>
-                  <input type="text" class="form-control" id="{{ course_form.title.id_for_label }}" name="{{ course_form.title.name }}" placeholder="Enter course title" required>
+                  <label for="course-title" class="form-label">Course Title</label>
+                  <input type="text" class="form-control" id="course-title" name="course-title" placeholder="Enter course title" required>
                 </div>
                 <div class="mb-3">
-                  <label for="{{ course_form.category.id_for_label }}" class="form-label">Category</label>
-                  <select class="form-select" id="{{ course_form.category.id_for_label }}" name="{{ course_form.category.name }}" required>
+                  <label for="category" class="form-label">Category</label>
+                  <select class="form-select" id="category" name="category" required>
                     <option value="">Select category</option>
                     {% for value, label in course_form.category.field.choices %}
                       <option value="{{ value }}">{{ label }}</option>
@@ -29,8 +29,8 @@
                   </select>
                 </div>
                 <div class="mb-3">
-                  <label for="{{ course_form.skill_level.id_for_label }}" class="form-label">Skill Level</label>
-                  <select class="form-select" id="{{ course_form.skill_level.id_for_label }}" name="{{ course_form.skill_level.name }}" required>
+                  <label for="skill-level" class="form-label">Skill Level</label>
+                  <select class="form-select" id="skill-level" name="skill-level" required>
                     <option value="">Select skill level</option>
                     {% for value, label in course_form.skill_level.field.choices %}
                       <option value="{{ value }}">{{ label }}</option>
@@ -40,40 +40,48 @@
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="{{ course_form.price.id_for_label }}" class="form-label">Price</label>
-                  <input type="number" class="form-control" id="{{ course_form.price.id_for_label }}" name="{{ course_form.price.name }}" placeholder="Enter price" step="0.01" required>
+                  <label for="price" class="form-label">Price</label>
+                  <input type="number" class="form-control" id="price" name="price" placeholder="Enter price" step="0.01" required>
                 </div>
                 <div class="mb-3">
-                  <label for="{{ course_form.discount.id_for_label }}" class="form-label">Discount amount</label>
-                  <input type="number" class="form-control" id="{{ course_form.discount.id_for_label }}" name="{{ course_form.discount.name }}" placeholder="Enter discount amount">
+                  <label for="discount-amount" class="form-label">Discount amount</label>
+                  <input type="number" class="form-control" id="discount-amount" name="discount-amount" placeholder="Enter discount amount">
                 </div>
                 <div class="mb-3">
-                  <label for="{{ course_form.image.id_for_label }}" class="form-label">Course Image</label>
-                  <input type="file" class="form-control" id="{{ course_form.image.id_for_label }}" name="{{ course_form.image.name }}">
+                  <label for="course-image" class="form-label">Course Image</label>
+                  <input type="file" class="form-control" id="course-image" name="course-image">
                 </div>
               </div>
             </div>
             <div class="mb-3">
-              <label for="{{ course_form.description.id_for_label }}" class="form-label">Description</label>
-              <textarea class="form-control" id="{{ course_form.description.id_for_label }}" name="{{ course_form.description.name }}" rows="4" placeholder="Enter course description" required></textarea>
+              <label for="description" class="form-label">Description</label>
+              <textarea class="form-control" id="description" name="description" rows="4" placeholder="Enter course description" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="syllabus" class="form-label">Syllabus</label>
+              <textarea class="form-control" id="syllabus" name="syllabus" rows="4" placeholder="Enter course syllabus" required></textarea>
+            </div>
+            <div class="mb-3">
+              <label for="course-material" class="form-label">Course Study Material</label>
+              <input type="file" class="form-control" id="course-material" name="course-material">
             </div>
             <div class="row">
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="{{ course_form.duration.id_for_label }}" class="form-label">Duration (in months)</label>
-                  <input type="text" class="form-control" id="{{ course_form.duration.id_for_label }}" name="{{ course_form.duration.name }}" placeholder="Enter duration" required>
+                  <label for="duration" class="form-label">Duration (in months)</label>
+                  <input type="text" class="form-control" id="duration" name="duration" placeholder="Enter duration" required>
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="mb-3">
-                  <label for="{{ course_form.enrollment_deadline.id_for_label }}" class="form-label">Enrollment Deadline</label>
-                  <input type="date" class="form-control" id="{{ course_form.enrollment_deadline.id_for_label }}" name="{{ course_form.enrollment_deadline.name }}" required>
+                  <label for="deadline" class="form-label">Enrollment Deadline</label>
+                  <input type="date" class="form-control" id="deadline" name="deadline" required>
                 </div>
               </div>
             </div>
             <div class="mb-3">
-              <label for="{{ course_form.prerequisites.id_for_label }}" class="form-label">Prerequisites</label>
-              <textarea class="form-control" id="{{ course_form.prerequisites.id_for_label }}" name="{{ course_form.prerequisites.name }}" rows="3" placeholder="Enter prerequisites"></textarea>
+              <label for="prerequisities" class="form-label">Prerequisites</label>
+              <textarea class="form-control" id="prerequisities" name="prerequisites" rows="3" placeholder="Enter prerequisites"></textarea>
             </div>
           </div>
         </div>
@@ -115,7 +123,7 @@
             <a href="{% url 'create_course' %}" class="list-group-item list-group-item-action active">
               <i class="bi bi-journal-bookmark me-2"></i> Add Courses
             </a>
-            <a href="#" class="list-group-item list-group-item-action">
+            <a href="{% url 'my_course' %}" class="list-group-item list-group-item-action">
               <i class="bi bi-people me-2"></i> My Courses
             </a>
             <a href="#" class="list-group-item list-group-item-action">
@@ -145,15 +153,11 @@
         <label class="form-label">Topic Title</label>
         <input type="text" class="form-control" name="topics[]" placeholder="Enter topic title" required>
       </div>
-      <div class="mb-3">
-        <label class="form-label">Topic Description</label>
-        <textarea class="form-control" name="topic_descriptions[]" rows="3" placeholder="Enter topic description" required></textarea>
-      </div>
       <div class="videos-container mb-3">
         <h5 class="fw-bold">Videos</h5>
         <div class="video-item mb-3">
           <input type="text" class="form-control mb-2" name="videos[${topicIndex}][title]" placeholder="Video title" required>
-          <input type="url" class="form-control" name="videos[${topicIndex}][url]" placeholder="Video URL" required>
+          <input type="file" class="form-control" name="videos[${topicIndex}][url]" placeholder="Video URL" required>
         </div>
       </div>
       <button type="button" class="btn btn-secondary btn-sm add-video">
@@ -169,7 +173,7 @@
       videoDiv.classList.add('video-item', 'mb-3');
       videoDiv.innerHTML = `
         <input type="text" class="form-control mb-2" name="videos[${topicIndex}][title]" placeholder="Video title" required>
-        <input type="url" class="form-control" name="videos[${topicIndex}][url]" placeholder="Video URL" required>
+        <input type="file" class="form-control" name="videos[${topicIndex}][url]" placeholder="Video URL" required>
       `;
       videosContainer.appendChild(videoDiv);
     });

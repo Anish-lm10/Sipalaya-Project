@@ -72,6 +72,8 @@
           <!-- Course Title -->
           <h5 class="card-title">{{ course.title }}</h5>
 
+          <p class="text-muted mb-1">Instructor: <span class="fw-bold">{{ course.instructor }}</span></p>
+
           <!-- Skill Level and Duration -->
           <p class="text-muted mb-1">Skill Level: <span class="fw-bold">{{ course.skill_level }}</span></p>
           <p class="text-muted mb-2">Duration: <span class="fw-bold">{{ course.duration }} months</span></p>
@@ -88,7 +90,7 @@
             <del class="text-muted">Rs.{{ course.price }}</del>
           </span>
           <!-- Enroll Button -->
-          <button class="btn btn-primary btn-sm">Enroll Now</button>
+          <a href="{% url 'course_one' course.id %}"><button class="btn btn-primary btn-sm">Details</button></a>
         </div>
       </div>
     </div>

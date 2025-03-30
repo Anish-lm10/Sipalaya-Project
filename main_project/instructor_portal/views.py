@@ -36,6 +36,7 @@ def create_course(request):
             # Save the course and set the instructor
             course = course_form.save(commit=False)
             course.instructor = request.user
+            course.is_active = False
             course.save()
 
             # Save topics and videos
@@ -70,3 +71,13 @@ def create_course(request):
             "course_form": course_form,
         },
     )
+
+
+def my_course(request):
+    courses = Courses.objects.filter(instructor=request.user)
+    return render(request, "inst_dashboard/mycourse.html", {"courses": courses})
+
+
+# def view_course(request,pk):
+#     course = Courses.objects.filter(id=pk)
+#     return render(request, "inst_dashboard/view_course.html", {"course": course})

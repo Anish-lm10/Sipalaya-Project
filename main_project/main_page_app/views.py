@@ -1,10 +1,11 @@
 import re
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, logout, authenticate
 from django.contrib import messages
 from django.contrib.auth.forms import AuthenticationForm
 from django.core.mail import send_mail, EmailMessage
+
 
 from .models import *
 from .forms import CustomUserCreationForm
@@ -38,6 +39,11 @@ def courses(request):
     courses = Courses.objects.all()
     context = {"courses": courses, "date": datetime.now().year}
     return render(request, "mainpage_html/courses.html", context)
+
+
+def course_detail(request, id):
+    course = Courses.objects.get(id=id)
+    return render(request, "mainpage_html/courses_one.html", {"course": course})
 
 
 def aboutus(request):

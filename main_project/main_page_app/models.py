@@ -59,6 +59,10 @@ class Courses(models.Model):
     category = models.CharField(max_length=100, choices=CATEGORY_CHOICES)
     skill_level = models.CharField(max_length=100, choices=SKILL_LEVEL)
     description = models.TextField()
+    syllabus = models.TextField(null=True)
+    course_material = models.FileField(
+        upload_to="course_materials/", blank=True, null=True
+    )
     image = models.ImageField(upload_to="images/courses/", blank=True, null=True)
     price = models.DecimalField(max_digits=10, decimal_places=2)
     discount = models.PositiveIntegerField(default=0)
@@ -66,7 +70,7 @@ class Courses(models.Model):
         CustomUser,
         on_delete=models.CASCADE,
         limit_choices_to={"user_type": "instructor"},
-        null=True
+        null=True,
     )
     duration = models.CharField(
         max_length=50, help_text="in months"
