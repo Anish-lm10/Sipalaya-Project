@@ -16,7 +16,7 @@
                         Rs.{{ course.discount }}
                         <del class="text-muted">Rs.{{ course.price }}</del>
                     </p>
-                    <a href="#"><button class="btn btn-success">Enroll Now</button></a>
+                    <a href="{% url 'payment_page' course.id %}"><button class="btn btn-success">Enroll Now</button></a>
                 </div>
             </div>
 

@@ -124,3 +124,25 @@ class BlogPost(models.Model):
 
     def __str__(self):
         return self.title
+
+
+# Payment Model
+class Payment(models.Model):
+    PAYMENT_METHODS = [
+        ("esewa", "eSewa"),
+        ("khalti", "Khalti")
+    ]
+    STATUS_CHOICES = [
+        ("pending", "Pending"),
+        ("completed", "Completed"),
+        ("failed", "Failed"),
+    ]
+    user = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    course = models.ForeignKey(Courses, on_delete=models.CASCADE)
+    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS)
+    transaction_id = models.CharField(max_length=100, unique=True,null=True)
+    status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
+
+    def __str__(self):
+        return f"{self.user.username} - {self.course.title} - {self.payment_method} - {self.status}"

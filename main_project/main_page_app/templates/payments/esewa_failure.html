@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Payment Failed {% endblock %}
+
+{% block content %}
+<div class="container text-center my-5">
+    <h2 class="text-danger">❌ Payment Failed</h2>
+    <p>Oops! Your transaction could not be processed.</p>
+    {% if error %}
+        <p class="text-muted">{{ error }}</p>
+    {% else %}
+        <p>Please try again or contact support.</p>
+    {% endif %}
+    <a href="{% url 'courses' %}" class="btn btn-primary">Back to Courses</a>
+</div>
+{% endblock %}

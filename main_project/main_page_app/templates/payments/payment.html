@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% block title %} Payment for {{ course.title }} {% endblock %}
+
+{% block content %}
+{% load static %}
+<div class="container my-5">
+    <div class="card shadow-lg p-4">
+        <h2 class="text-center mb-3">Choose a Payment Method</h2>
+        <p class="text-center"><strong>Enrolling in:</strong> {{ course.title }}</p>
+        <p class="text-center"><strong>Amount:</strong> Rs.{{ course.discount }}</p>
+
+        <div class="row justify-content-center mt-4">
+            <!-- eSewa -->
+            <div class="col-md-4">
+                <div class="card text-center border-success shadow-sm">
+                    <div class="card-body">
+                        <img src="{% static 'images/esewa.png' %}" 
+                             alt="eSewa" class="img-fluid mb-3" style="height: 60px;">
+                        <h5 class="card-title">Pay with eSewa</h5>
+                        <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="amount" value="{{ course.discount }}" required>
+                            <input type="hidden" name="tax_amount" value="0" required>
+                            <input type="hidden" name="total_amount" value="{{ course.discount }}" required>
+                            <input type="hidden" name="transaction_uuid" value="{{ transaction_id }}" required>
+                            <input type="hidden" name="product_code" value="EPAYTEST" required>
+                            <input type="hidden" name="success_url" value="{% url 'esewa_success' %}" required>
+                            <input type="hidden" name="failure_url" value="{% url 'esewa_failure' %}" required>
+                            <button type="submit" class="btn btn-success w-100">Pay with eSewa</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Khalti -->
+            <div class="col-md-4">
+                <div class="card text-center border-primary shadow-sm">
+                    <div class="card-body">
+                        <img src="{% static 'images/khalti.png' %}" 
+                             alt="Khalti" class="img-fluid mb-3" style="height: 60px;">
+                        <h5 class="card-title">Pay with Khalti</h5>
+                        <form action="{% url 'initiate' %}" method="POST">
+                            {% csrf_token %}
+                            <input type="hidden" name="course_id" value="{{ course.id }}">
+                            <input type="hidden" name="purchase_order_id" value="{{ transaction_id }}">
+                            <input type="hidden" name="amount" value="{{ course.discount }}">
+                            <input type="hidden" name="return_url" value="{% url 'khalti_success' %}">
+                            <button class="btn btn-primary w-100">Pay with Khalti</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock %}
