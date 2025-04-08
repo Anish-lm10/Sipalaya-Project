@@ -118,11 +118,11 @@
             <h5>Quick Links</h5>
             <ul class="list-unstyled mt-3">
               {% if user.is_authenticated %}
-              <li>
-                <a href="{% url 'dashboard' %}" class="text-decoration-none text-secondary"
-                  >Dashboard</a
-                >
-              </li>
+              {% if user.user_type == "student" %}
+                        <li><a class="dropdown-item" href="{% url 'dashboard' %}">Dashboard</a></li>
+                    {% elif user.user_type == "instructor" %}
+                        <li><a class="dropdown-item" href="{% url 'instructor_dashboard' %}">Instructor Dashboard</a></li>
+                    {% endif %}
               {% else %}
               <li>
                 <a href="{% url 'login' %}" class="text-decoration-none text-secondary"

@@ -6,7 +6,7 @@
     <!-- Left Side - Main Content -->
     <div class="col-md-9">
       <h2 class="mb-4">Create a New Course</h2>
-      <form method="post" enctype="multipart/form-data">
+      <form method="post" action="{% url 'create_course' %}" enctype="multipart/form-data">
         {% csrf_token %}
         
         <!-- Course Details Card -->
@@ -17,7 +17,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="course-title" class="form-label">Course Title</label>
-                  <input type="text" class="form-control" id="course-title" name="course-title" placeholder="Enter course title" required>
+                  <input type="text" class="form-control" id="title" name="title" placeholder="Enter course title" required>
                 </div>
                 <div class="mb-3">
                   <label for="category" class="form-label">Category</label>
@@ -30,7 +30,7 @@
                 </div>
                 <div class="mb-3">
                   <label for="skill-level" class="form-label">Skill Level</label>
-                  <select class="form-select" id="skill-level" name="skill-level" required>
+                  <select class="form-select" id="skill_level" name="skill_level" required>
                     <option value="">Select skill level</option>
                     {% for value, label in course_form.skill_level.field.choices %}
                       <option value="{{ value }}">{{ label }}</option>
@@ -45,11 +45,11 @@
                 </div>
                 <div class="mb-3">
                   <label for="discount-amount" class="form-label">Discount amount</label>
-                  <input type="number" class="form-control" id="discount-amount" name="discount-amount" placeholder="Enter discount amount">
+                  <input type="number" class="form-control" id="discount" name="discount" placeholder="Enter discount amount">
                 </div>
                 <div class="mb-3">
                   <label for="course-image" class="form-label">Course Image</label>
-                  <input type="file" class="form-control" id="course-image" name="course-image">
+                  <input type="file" class="form-control" id="image" name="image">
                 </div>
               </div>
             </div>
@@ -63,7 +63,7 @@
             </div>
             <div class="mb-3">
               <label for="course-material" class="form-label">Course Study Material</label>
-              <input type="file" class="form-control" id="course-material" name="course-material">
+              <input type="file" class="form-control" id="course_material" name="course_material">
             </div>
             <div class="row">
               <div class="col-md-6">
@@ -75,7 +75,7 @@
               <div class="col-md-6">
                 <div class="mb-3">
                   <label for="deadline" class="form-label">Enrollment Deadline</label>
-                  <input type="date" class="form-control" id="deadline" name="deadline" required>
+                  <input type="date" class="form-control" id="enrollment_deadline" name="enrollment_deadline" required>
                 </div>
               </div>
             </div>
@@ -143,7 +143,6 @@
 <script>
   let topicIndex = 0;
 
-  // Add a new topic
   document.getElementById('add-topic').addEventListener('click', function () {
     const topicsContainer = document.getElementById('topics-container');
     const topicDiv = document.createElement('div');
@@ -157,27 +156,28 @@
         <h5 class="fw-bold">Videos</h5>
         <div class="video-item mb-3">
           <input type="text" class="form-control mb-2" name="videos[${topicIndex}][title]" placeholder="Video title" required>
-          <input type="file" class="form-control" name="videos[${topicIndex}][url]" placeholder="Video URL" required>
+          <input type="file" class="form-control" name="videos[${topicIndex}][url]" accept="video/*" required>
         </div>
       </div>
-      <button type="button" class="btn btn-secondary btn-sm add-video">
+      <button type="button" class="btn btn-secondary btn-sm add-video" data-topic-index="${topicIndex}">
         <i class="bi bi-plus-circle me-2"></i> Add Video
       </button>
     `;
     topicsContainer.appendChild(topicDiv);
-
-    // Add video to the topic
-    topicDiv.querySelector('.add-video').addEventListener('click', function () {
-      const videosContainer = topicDiv.querySelector('.videos-container');
+    
+    // Add event listener for the new "Add Video" button
+    topicDiv.querySelector('.add-video').addEventListener('click', function() {
+      const topicIndex = this.getAttribute('data-topic-index');
+      const videosContainer = this.parentElement.querySelector('.videos-container');
       const videoDiv = document.createElement('div');
       videoDiv.classList.add('video-item', 'mb-3');
       videoDiv.innerHTML = `
         <input type="text" class="form-control mb-2" name="videos[${topicIndex}][title]" placeholder="Video title" required>
-        <input type="file" class="form-control" name="videos[${topicIndex}][url]" placeholder="Video URL" required>
+        <input type="file" class="form-control" name="videos[${topicIndex}][url]" accept="video/*" required>
       `;
       videosContainer.appendChild(videoDiv);
     });
-
+    
     topicIndex++;
   });
 </script>

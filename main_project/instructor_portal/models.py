@@ -15,7 +15,7 @@ class Topic(models.Model):
 class Video(models.Model):
     topic = models.ForeignKey(Topic, on_delete=models.CASCADE, related_name='videos')
     title = models.CharField(max_length=200)  # Video title
-    video_url = models.URLField()  # Video URL
+    video_url = models.FileField(upload_to='course_video/')  # Video URL
     order = models.PositiveIntegerField(default=0)  # Order of the video within the topic
 
     def __str__(self):

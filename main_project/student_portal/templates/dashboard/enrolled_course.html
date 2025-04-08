@@ -1,0 +1,78 @@
+{% extends 'base2.html' %}
+{% block title %} My Enrolled Courses {% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid">
+  <div class="row p-4">
+    <!-- Main Content - Enrolled Courses (Left Side) -->
+    <div class="col-md-9">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <h4 class="fw-bold mb-4">My Enrolled Courses</h4>
+          
+          {% if enrolled_courses %}
+            <div class="row">
+              {% for course in enrolled_courses %}
+                <div class="col-md-4 mb-4"> 
+                  <div class="card h-100">
+                    {% if course.image %}
+                      <img src="{{ course.image.url }}" class="card-img-top img-fluid" alt="{{ course.title }}" style="height: 150px; object-fit: contain;">
+                    {% else %}
+                      <img src="{% static 'images/default.png' %}" class="card-img-top img-fluid" alt="Default Course Image" style="height: 150px; object-fit: contain;">
+                    {% endif %}
+                    <div class="card-body">
+                      <h5 class="card-title">{{ course.title }}</h5>
+                      <p class="card-text text-muted">{{ course.category|title }}</p>
+                      <p class="card-text">{{ course.description|truncatechars:100 }}</p>
+                      <div class="d-flex justify-content-between align-items-center">
+                        <span class="badge bg-primary">{{ course.skill_level|title }}</span>
+                      </div>
+                    </div>
+                    <div class="card-footer bg-white">
+                      <a href="{% url 'course_detail' course.id %}" class="btn btn-primary w-100">Continue Learning</a>
+                    </div>
+                  </div>
+                </div>
+              {% endfor %}
+            </div>
+          {% else %}
+            <div class="alert alert-info">
+              You haven't enrolled in any courses yet. <a href="{% url 'courses' %}">Browse Courses</a>
+            </div>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Side - Sidebar Menu (Unchanged) -->
+    <div class="col-md-3 mt-md-0 mt-4">
+      <div class="card shadow-sm h-100">
+        <div class="card-body">
+          <h5 class="fw-bold mb-4">Menu</h5>
+          <div class="list-group">
+            <a href="{% url 'dashboard' %}" class="list-group-item list-group-item-action">
+              <i class="bi bi-speedometer2 me-2"></i> Dashboard
+            </a>
+            <a href="{% url 'myprofile' %}" class="list-group-item list-group-item-action">
+              <i class="bi bi-person me-2"></i> My Profile
+            </a>
+            <a href="{% url 'enrolled_courses' %}" class="list-group-item list-group-item-action active">
+              <i class="bi bi-journal-bookmark me-2"></i> Enrolled Courses
+            </a>
+            <a href="#" class="list-group-item list-group-item-action">
+              <i class="bi bi-file-earmark-arrow-up me-2"></i> Assignments
+            </a>
+            <a href="{% url 'job_listing' %}" class="list-group-item list-group-item-action">
+              <i class="bi bi-briefcase me-2"></i> Job Annoucement
+            </a>
+            <a href="{% url 'logout' %}" class="list-group-item list-group-item-action text-danger">
+              <i class="bi bi-box-arrow-right me-2"></i> Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

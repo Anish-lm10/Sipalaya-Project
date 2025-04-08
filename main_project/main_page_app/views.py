@@ -41,7 +41,7 @@ def home(request):
 
 
 def courses(request):
-    courses = Courses.objects.all()
+    courses = Courses.objects.filter(is_active=True)
     context = {"courses": courses, "date": datetime.now().year}
     return render(request, "mainpage_html/courses.html", context)
 

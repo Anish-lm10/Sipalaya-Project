@@ -1,0 +1,87 @@
+{% extends 'base2.html' %}
+{% block title %}{{ course.title }} - Learning Portal{% endblock %}
+{% block content %}
+{% load static %}
+
+<div class="container-fluid">
+  <div class="row p-4">
+    <!-- Main Content - Video Player and Topics -->
+    <div class="col-md-9">
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h4 class="fw-bold mb-3">{{ course.title }}</h4>
+          
+          <!-- Video Player Section -->
+<div class="ratio ratio-16x9 mb-4">
+  {% if current_video %}
+    <video controls width="100%" id="course-video">
+      <source src="{{ current_video.video_url.url }}" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
+  {% else %}
+    <div class="d-flex align-items-center justify-content-center bg-light" style="height: 100%;">
+      <p class="text-muted">Select a video to start learning</p>
+    </div>
+  {% endif %}
+</div>
+
+<!-- Video Navigation -->
+<div class="d-flex justify-content-between mb-4">
+  {% if prev_video %}
+    <a href="{% url 'video_detail' course.id prev_video.id %}" class="btn btn-outline-primary">
+      <i class="bi bi-chevron-left me-2"></i> Previous
+    </a>
+  {% else %}
+    <span></span>
+  {% endif %}
+  
+  {% if next_video %}
+    <a href="{% url 'video_detail' course.id next_video.id %}" class="btn btn-primary">
+      Next <i class="bi bi-chevron-right ms-2"></i>
+    </a>
+  {% endif %}
+</div>
+          
+          <!-- Video Details -->
+          <div class="mb-4">
+            <h5>{{ current_video.title|default:"No video selected" }}</h5>
+            <p class="text-muted">{{ current_video.topic.title|default:"" }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Course Description -->
+      <div class="card shadow-sm mb-4">
+        <div class="card-body">
+          <h5 class="fw-bold mb-3">About This Course</h5>
+          <p>{{ course.description }}</p>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Right Side - Topics List -->
+<div class="col-md-3">
+  <div class="card shadow-sm h-100">
+    <div class="card-body">
+      <h5 class="fw-bold mb-3">Course Content</h5>
+      <div class="list-group list-group-flush">
+        {% for topic in topics %}
+          <div class="list-group-item border-0 px-0 py-2">
+            <h6 class="fw-bold">{{ topic.title }}</h6>
+            <div class="list-group list-group-flush">
+              {% for video in topic.videos.all %}
+                <a href="{% url 'video_detail' course.id video.id %}" 
+                   class="list-group-item list-group-item-action {% if video.id == current_video.id %}active{% endif %}">
+                  <i class="bi bi-play-circle me-2"></i> {{ video.title }}
+                </a>
+              {% endfor %}
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+  </div>
+</div>
+{% endblock %}
