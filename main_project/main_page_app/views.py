@@ -42,7 +42,28 @@ def home(request):
 
 def courses(request):
     courses = Courses.objects.filter(is_active=True)
-    context = {"courses": courses, "date": datetime.now().year}
+
+    # Filters
+    skill_level = request.GET.get("skill_level")
+    duration = request.GET.get("duration")
+    price = request.GET.get("price")
+
+    if skill_level:
+        courses = courses.filter(skill_level__iexact=skill_level)
+
+    if duration:
+        courses = courses.filter(duration__lte=duration)
+
+    if price:
+        courses = courses.filter(price__lte=price)
+
+    context = {
+        "courses": courses,
+        "date": datetime.now().year,
+        "selected_skill_level": skill_level,
+        "selected_duration": duration,
+        "selected_price": price,
+    }
     return render(request, "mainpage_html/courses.html", context)
 
 

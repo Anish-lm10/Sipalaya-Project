@@ -19,7 +19,7 @@
                         <h5 class="card-title">Pay with eSewa</h5>
                         <form action="https://rc-epay.esewa.com.np/api/epay/main/v2/form" method="POST">
                             {% csrf_token %}
-                            <input type="hidden" name="amount" value="{{ course.discount }}" required>
+                            <input type="hidden" name="amount" value="{{ course.price }}" required>
                             <input type="hidden" name="tax_amount" value="0" required>
                             <input type="hidden" name="total_amount" value="{{ course.discount }}" required>
                             <input type="hidden" name="transaction_uuid" value="{{ transaction_id }}" required>
