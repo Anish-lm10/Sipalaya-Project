@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 {% block title %} Login {% endblock %}
 {% block content %}
+{% load socialaccount %}
 
 <div class="d-flex justify-content-center align-items-center vh-100 bg-light">
   <div class="col-md-4">
@@ -49,7 +50,7 @@
         </form>
 
         <!-- Google Login Button -->
-        <a href="#" class="btn btn-outline-danger w-100 mb-3">
+        <a href="{% provider_login_url 'google' %}" class="btn btn-outline-danger w-100 mb-3">
           <i class="bi bi-google"></i> Login with Google
         </a>
 

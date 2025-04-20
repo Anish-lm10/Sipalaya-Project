@@ -10,7 +10,7 @@ class CustomUser(AbstractUser):
         ("student", "Student"),
         ("instructor", "Instructor"),
     )
-    user_type = models.CharField(max_length=100, choices=USER_TYPE)
+    user_type = models.CharField(max_length=100, choices=USER_TYPE, default="student")
     user_profile_image = models.ImageField(upload_to="images/profile_images/")
     phone = models.CharField(max_length=15, blank=True, null=True)
     address = models.TextField(blank=True, null=True)
@@ -128,10 +128,7 @@ class BlogPost(models.Model):
 
 # Payment Model
 class Payment(models.Model):
-    PAYMENT_METHODS = [
-        ("esewa", "eSewa"),
-        ("khalti", "Khalti")
-    ]
+    PAYMENT_METHODS = [("esewa", "eSewa"), ("khalti", "Khalti")]
     STATUS_CHOICES = [
         ("pending", "Pending"),
         ("completed", "Completed"),
@@ -141,7 +138,7 @@ class Payment(models.Model):
     course = models.ForeignKey(Courses, on_delete=models.CASCADE)
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_method = models.CharField(max_length=20, choices=PAYMENT_METHODS)
-    transaction_id = models.CharField(max_length=100, unique=True,null=True)
+    transaction_id = models.CharField(max_length=100, unique=True, null=True)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="pending")
 
     def __str__(self):
